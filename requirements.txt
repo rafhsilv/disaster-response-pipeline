@@ -1,0 +1,8 @@
+nltk
+pandas
+numpy
+scikit-learn
+sqlalchemy
+flask
+plotly
+joblib
