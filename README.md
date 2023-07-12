@@ -6,24 +6,25 @@ This tool designed to assist individuals and organizations during disaster event
 The primary goal is to provide a practical solution that have a real-world impact, making a difference in times of crisis.
 
 ## Files in the Repository
-- app
-| - template
-| |- master.html  # main page of web app
-| |- go.html  # classification result page of web app
-|- run.py  # Flask file that runs app
 
-- data
-|- disaster_categories.csv  # data to process 
-|- disaster_messages.csv  # data to process
-|- process_data.py
-|- DisasterResponse.db   # database to save clean data to
+- `app/`: Directory containing the web app files.
+  - `template/`: Directory containing the HTML templates for the web app.
+    - `master.html`: Main page of the web app.
+    - `go.html`: Classification result page of the web app.
+  - `run.py`: Flask file that runs the app.
+  
+- `data/`: Directory containing the data files and processing scripts.
+  - `disaster_categories.csv`: Data to process.
+  - `disaster_messages.csv`: Data to process.
+  - `process_data.py`: Script for processing the data.
+  - `DisasterResponse.db`: Database to save clean data to.
 
-- models
-|- train_classifier.py
-|- classifier.pkl  # saved model 
+- `models/`: Directory containing the model training script and saved model.
+  - `train_classifier.py`: Script for training the classifier.
+  - `classifier.pkl`: Saved model.
 
-- README.md
-- requirements.txt # python packages needed for this project.
+- `README.md`: Documentation for the project.
+- `requirements.txt`: List of Python packages required for this project.
 
 ## Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
