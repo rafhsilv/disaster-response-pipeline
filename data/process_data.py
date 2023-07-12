@@ -1,4 +1,3 @@
-python
 import re
 import pandas as pd
 import numpy as np
@@ -43,7 +42,7 @@ def clean_data(df):
 
     df = pd.concat([df.drop('categories', axis=1), categories], axis=1)
     df = df.drop_duplicates()
-    df = df.loc[df.apply(lambda col: col.isin([0, 1])).all(axis=1)] #dropping all non binary rows
+    df = df.loc[~(df == 2).any(axis=1)] #dropping all non binary rows
     
     return df
 
@@ -79,7 +78,7 @@ def main():
         print('Saving data...\n    DATABASE: {}'.format(database_filepath))
         save_data(df, database_filepath)
         
-        print('Cleaneddata saved to database!')
+        print('Cleaned data saved to database!')
     
     else:
         print('Please provide the filepaths of the messages and categories '\

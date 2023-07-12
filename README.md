@@ -12,7 +12,7 @@ The primary goal is to provide a practical solution that have a real-world impac
     - `master.html`: Main page of the web app.
     - `go.html`: Classification result page of the web app.
   - `run.py`: Flask file that runs the app.
-  
+
 - `data/`: Directory containing the data files and processing scripts.
   - `disaster_categories.csv`: Data to process.
   - `disaster_messages.csv`: Data to process.
@@ -26,7 +26,7 @@ The primary goal is to provide a practical solution that have a real-world impac
 - `README.md`: Documentation for the project.
 - `requirements.txt`: List of Python packages required for this project.
 
-## Instructions:
+## Instructions
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database

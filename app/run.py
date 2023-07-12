@@ -2,13 +2,14 @@ import json
 import plotly
 import pandas as pd
 import joblib
+import plotly.express as px
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Pie, Bar
 from sqlalchemy import create_engine
 
 
@@ -38,29 +39,56 @@ model = joblib.load("../models/classifier.pkl")
 @app.route('/index')
 def index():
     
-    # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    genre_counts = df['genre'].value_counts()
+    fig = px.pie(genre_counts, names=genre_counts.index, values=genre_counts.values, title='Genre Distribution')
+
+    # Create the pie chart
+    fig = px.pie(genre_counts, names=genre_counts.index, values=genre_counts.values, title='Genre Distribution')
+
+    # Extract the necessary information
+    genre_labels = genre_counts.index.tolist()
+    genre_percentages = [float(value) for value in genre_counts.values / genre_counts.sum() * 100]
+
+    category_columns = ['related', 'request', 'offer', 'aid_related', 'medical_help', 'medical_products',
+                         'search_and_rescue', 'security', 'military', 'child_alone', 'water', 'food', 
+                         'shelter', 'clothing', 'money', 'missing_people', 'refugees', 'death',
+                         'other_aid', 'infrastructure_related', 'transport', 'buildings',
+                         'electricity', 'tools', 'hospitals', 'shops', 'aid_centers',
+                         'other_infrastructure', 'weather_related', 'floods', 'storm',
+                         'fire', 'earthquake', 'cold', 'other_weather', 'direct_report']
     
+    category_counts = df[category_columns].sum().sort_values(ascending=False)
+    category_names = list(category_counts.index)
+
+
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
+                Pie(
+                    labels=genre_counts.index,
+                    values=genre_counts.values
                 )
             ],
-
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Genre Distribution'
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_counts
+                )
+            ],
+            'layout': {
+                'title': 'Category Distribution',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Number of Messages"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Categories"
                 }
             }
         }
